@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris
 // +build darwin dragonfly freebsd linux netbsd openbsd solaris
 
 package filemutex
@@ -19,7 +20,7 @@ type FileMutex struct {
 }
 
 func New(filename string) (*FileMutex, error) {
-	fd, err := unix.Open(filename, unix.O_CREAT|unix.O_RDONLY, mkdirPerm)
+	fd, err := unix.Open(filename, unix.O_CREAT|unix.O_RDWR, mkdirPerm)
 	if err != nil {
 		return nil, err
 	}
